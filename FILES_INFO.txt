@@ -1,0 +1,35 @@
+
+FUNCTION FILES (only 'background' files)
+helper_func.py: Contains plotting functions etc.
+keras_custom.py: Extended / modified Keras functions (tensorflow), used for network training and evaluation (prediction)
+netw_models.py: Definition of adapted u-net (model architecture)
+netw_preprocess.py: Classes / functions for data pre-processing (patch selection, data augmentation etc.)
+netw_postprocess.py: Contains all functions for post-processing (dense crf etc.)
+netw_test_predict.py: Classes / functions for employing the trained network
+
+NETWORK PRE-PROCESSING
+main_netw_preprocess_exec.py: File for data pre-processing
+main_netw_predict_conv_exec.py: File to convert or pre-process an image set without ground truth (new images)
+
+NETWORK TRAINING
+(First, the files 'keras_custom', 'netw_models', and 'main_netw_train' need to be uploaded to the remote 
+Linux instance together with the (training and validation) data files e.g. dataset_training.npz and 
+dataset_validation.npz)
+main_netw_train.py: File that initializes the network and starts the training (e.g. on a remote Linux instance with GPU support)
+                    First, set all keyword arguments directly in the file (easiest way) and then execute it with
+                    >>> Python main_netw_train.py dataset_training dataset_validation (console input, omot file extension (e.g. '.npz')
+
+NETWORK POST-PROCESSING
+main_netw_predict_exec.py: This file can be used to apply the trained network to a test dataset (or similar) or
+                           a dataset consisting of new images (without ground truth).
+                           If only the weights from the trained network are imported, then the weights
+                           (e.g. u_net_model_example_weights.h5) and the corresponding network-init file
+                           (e.g. u_net_model_example_init.json) need to be provided. Both files are produced during the
+                           training process. If the whole model is loaded, the model file (e.g. u_net_model_example.h5)
+                           has to be provided. The path (for providing a file) is always the path where a certain
+                           file is executed from.
+main_netw_predict_multicl_exec.py: Same as 'main_netw_predict_exec', mainly used for producing plots with more than
+                                   3 labels (see also comments in file!)
+main_netw_test_exec.py: This file is used to evaluate a certain trained network on a test set. It returns
+                        various metrics calculated using the provided test set (mainly used for network evaluation)
+                        (this file could also be combined with e.g. 'main_netw_predict_exec')
