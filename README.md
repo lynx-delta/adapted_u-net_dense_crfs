@@ -22,15 +22,12 @@ In a 2018 paper, Li et al. [3] discover that batch normalization and dropout can
 lead to worse performance when combined together in a deep network. The network architectures
 employed in this work either use batch normalization layers or apply batch normalization to the input only (for input data normalization purposes) and then use dropout layers.  
 
-Adapted U-Net architecture with batch normalization layers:  
-
+Adapted *U-Net* architecture with batch normalization layers:  
 
 ![Adapted U-Net architecture with batch normalization layers](data/u-net_batchnorm.png)  
 
 
-
-Adapted U-Net architecture with dropout layers  
-
+Adapted *U-Net* architecture with dropout layers:  
 
 ![Adapted U-Net architecture with dropout layers](data/u-net_dropout.png)  
 
@@ -38,11 +35,10 @@ Adapted U-Net architecture with dropout layers
 
 ### Data Preparation / Pre-Processing
 
-Data preparation / pre-processing consists of data set splitting (training set, validation / dev set, test (hold-out) set), patch selection (network is trained on image patches), data augmentation (only training set), image normalization (dividing the pixel intensities by the maximum pixel value), and one-hot encoding of the ground truth. Data set splitting needs to be done manually. For the remaining tasks, the script files `main_netw_preprocess_exec.py` (file for data pre-processing) and `main_netw_predict_conv_exec.py` (file to convert or pre-process an image set without ground truth (new images)) may be used. The pre-processed dataset is saved as a compressed numpy array file (.npz) where the network input images (patches) respectively the ground truth images (patches) are represented as 4-dimensional arrays (converted to 4-dimensional tensors when being fed to the network). The input images array has shape n<sup>s</sup> * I<sup>h</sup> * I<sup>w</sup> * I<sup>d</sup> whereas the array with the one-hot encoded ground truth data is of shape n<sup>s</sup> * I<sup>h</sup> * I<sup>w</sup> * I<sup>c</sup>. The parameter n<sup>s</sup> denotes the number of samples, I<sup>h</sup> the image height, I<sup>w</sup> the image width, I<sup>d</sup> the
-image or input depth (number of channels, e.g. one gray-scale phase contrast and one gray-scale nuclear image, in this case I<sup>d</sup> = 2), and I<sup>c</sup> the number of classes.  
+Data preparation / pre-processing consists of data set splitting (training set, validation / dev set, test (hold-out) set), patch selection (network is trained on image patches), data augmentation (only training set), image normalization (dividing the pixel intensities by the maximum pixel value), and one-hot encoding of the ground truth. Data set splitting needs to be done manually. For the remaining tasks, the script files `main_netw_preprocess_exec.py` (file for data pre-processing) and `main_netw_predict_conv_exec.py` (file to convert or pre-process an image set without ground truth (new images)) may be used. The pre-processed dataset is saved as a compressed numpy array file (.npz) where the network input images (patches) respectively the ground truth images (patches) are represented as 4-dimensional arrays (converted to 4-dimensional tensors when being fed to the network). The input images array has shape n<sub>s</sub> * I<sub>h</sub> * I<sub>w</sub> * I<sub>d</sub> whereas the array with the one-hot encoded ground truth data is of shape n<sub>s</sub> * I<sub>h</sub> * I<sub>w</sub> * I<sub>c</sub>. The parameter n<sub>s</sub> denotes the number of samples, I<sub>h</sub> the image height, I<sub>w</sub> the image width, I<sub>d</sub> the
+image or input depth (number of channels, e.g. one gray-scale phase contrast and one gray-scale nuclear image, in this case I<sub>d</sub> = 2), and I<sub>c</sub> the number of classes.  
 
 The following directory structure should be used:  
-
 
 ![Directory structure for data pre-processing](data/folder_input.png)  
 
@@ -61,9 +57,11 @@ than used for training (due to weight sharing in feature maps) by reinitializing
 Data post-processing is applied to the output of a trained network and is a separate process. In particular, this means that the dense Conditional Random Fields (CRFs) post-processing is not implemented as a layer in the network model and is therefore not involved in the training process. Furthermore, a segmentation mask is computed from the predicted probability map. When no dense CRFs post-processing is employed, the predicted probability map comes as the network output, otherwise it is the result of the dense CRFs post-processing step. The conditional random field post-processing is implemented using dense conditional random fields
 in combination with approximate mean-field inference as proposed by Krähenbühl and Koltun [4] and [5]. The final output of the dense CRFs post-processing step can be seen as an approximate posterior of the softmax input (unary potential). The dense CRFs post-processing is implemented via the *pydensecrf* package provided by L. Beyer [6].  
 
+Raw network output (probability map) versus CRFs post-processing (approximate posterior):  
 
 ![Raw network output (probability map) versus CRFs post-processing](data/nuclei_CRF.png)  
 
+Final segmentation mask:  
 
 ![Final segmentation mask](data/nuclei_mask.png)  
 
@@ -78,10 +76,16 @@ The cell nucleus images used to train the network (to produce the images shown a
 
 
 
-[1]: O. Ronneberger, P. Fischer, and T. Brox, "U-Net: Convolutional networks for biomedical image segmentation", University of Freiburg, vol. 1, no. 2015, pp. 1-8, 2015  
+[1]: O. Ronneberger, P. Fischer, and T. Brox, "U-Net: Convolutional networks for biomedical   image segmentation", University of Freiburg, vol. 1, no. 2015, pp. 1-8, 2015  
+
 [2]: C. Szegedy and S. Ioffe, "Batch normalization: Accelerating deep network training by reducing internal covariance shift", Google Research, vol. 1, no. 2015, pp. 1-11, 2015  
+
 [3]: X. Li, S. Chen, X. Hu, and J. Yang, "Understanding the disharmony between dropout and batch normalization by variance shift", ArXiv: 1801.05134v1, vol. 1, no. 2018, pp. 1-9, 2018  
+
 [4]: P. Krähenbühl and V. Koltun, "Efficient inference in fully connected CRFs with Gaussian edge potential", arXiv: 1210.5644v1, vol. 1, no. 2012, pp. 1-9, 2012  
+
 [5]: P. Krähenbühl and V. Koltun, "Parameter learning and convergent inference for dense random fields", Computer Science Department, Stanford University, vol. 1, no. 2013, pp. 1-9, 2013  
+
 [6]: L. Beyer, "Pydensecrf: A (cython-based) Python wrapper for Philipp Krähenbühl's fully-connected conditional random fields." https://github.com/lucasb-eyer/pydensecrf, accessed: 10/07/2018  
+
 [7]: D. VanValen et al., "Deep learning automates the quantitative analysis of individual cells in live-cell imaging experiments", PLOS Computational Biology, vol. 12, no. 11, pp. 1-12, 2016
