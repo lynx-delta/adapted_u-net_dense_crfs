@@ -25,7 +25,7 @@ def custom_softmax(input_data):
     return d / K.sum(d, axis=-1, keepdims=True)
 
 
-def custom_categorical_accuracy(y_true, y_pred): # currently unused
+def custom_categorical_accuracy(y_true, y_pred):  # currently unused
     '''Custom overall categorical accuracy'''
     # Keras original version
     return K.cast(K.equal(K.argmax(y_true, axis=-1),  

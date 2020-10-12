@@ -13,7 +13,7 @@ n_patches_train = 30               # patches per image (training set)
 n_patches_val = 30                 # patches per image (validation set)
 n_patches_test = 30                # patches per image (test set)
 augment_data = True                # perform data augmentation (is only applied to training set)
-augment_steps = 1                  # 1 = default
+augment_steps = 1                  # default = 1
 patch_train_kwargs = {'patch_shape': (256, 256),      # arguments training set
                       'new_folder_ext': 'patches',
                       'change_dir': change_dir}

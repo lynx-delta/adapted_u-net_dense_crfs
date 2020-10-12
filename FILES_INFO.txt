@@ -28,8 +28,8 @@ main_netw_predict_exec.py: This file can be used to apply the trained network to
                            training process. If the whole model is loaded, the model file (e.g. u_net_model_example.h5)
                            has to be provided. The path (for providing a file) is always the path where a certain
                            file is executed from.
-main_netw_predict_multicl_exec.py: Same as 'main_netw_predict_exec', mainly used for producing plots with more than
-                                   3 labels (see also comments in file!)
+main_netw_predict_multicl_exec.py: Same as 'main_netw_predict_exec', mainly used for producing plots with
+                                   more than 3 labels (see also comments in file!)
 main_netw_test_exec.py: This file is used to evaluate a certain trained network on a test set. It returns
                         various metrics calculated using the provided test set (mainly used for network evaluation)
                         (this file could also be combined with e.g. 'main_netw_predict_exec')

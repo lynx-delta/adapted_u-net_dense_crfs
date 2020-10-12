@@ -33,7 +33,7 @@ post_process_only = False
 
 # This file is similar to 'main_netw_predict_exec.py', it is mainly used
 # to produce nicer plots for sets with more than 3 features (can be combined
-# with the other file, it has not been done due to lack of time :-))
+# with the other file, it has not been done due to lack of time)
 
 
 # Load data files

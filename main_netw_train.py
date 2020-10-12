@@ -25,8 +25,8 @@ def model_train(file_train, file_val, model_name='u_net_model',
                    must be provided, the length of the list must correspond with
                    the number of classes (ground truth), the position of a certain
                    class (weighting) must correspond with the ground truth
-    batch_size: batch size to be used for training (must be smaller than 
-                number of training instances)
+    batch_size: batch size to be used for training (must be smaller
+                than number of training instances)
     n_epochs: number of epochs the network is trained for (in this example,
               the training would be stopped after 50 epochs)
     save_model: True or False, saves the whole model (including training

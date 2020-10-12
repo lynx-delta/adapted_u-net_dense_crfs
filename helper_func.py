@@ -40,8 +40,8 @@ def plot_predprob(y_pred, class_names=None, n_classes=3, xtick_int=50,
     if save_imag == True:
         plt.savefig(imag_name + '.' + save_as, bbox_inches='tight')
         if show_plt == False:
-            # Clear memory (or matplotlib history) although the figure
-            # is not shown
+            # Clear memory (or matplotlib history) although
+            # the figure is not shown
             plt.close()
     
 

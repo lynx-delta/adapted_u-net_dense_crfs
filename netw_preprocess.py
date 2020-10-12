@@ -45,7 +45,6 @@ class DataPreprocessor():
                 temp_path = join(label_folder_path, subdir[i])
                 self.label_path.append([temp_path])
     
-    
     def select_patches(self, n_patches, patch_shape=(256, 256), 
                        new_folder_ext='patches', change_dir=False):
         '''Select patches in all images (provided in folders)'''
@@ -89,8 +88,7 @@ class DataPreprocessor():
             self.label_path = patch_label_path
             self.path = self.path.replace(self.folder_name,
                                           self.folder_name + '_' + new_folder_ext)
-            
-        
+              
     def augment_data(self, rotate_prop=0.2, hflip_prop=0.2, vflip_prop=0.2,
                      scale_prop=0.2, scale_factor=1.2, shear_prop=0.2,
                      shear_factor=0.3):
@@ -171,8 +169,7 @@ class DataPreprocessor():
                 io.imsave(fname='{}\{}'.format(
                         file[0], 'shr_' + str(
                                 counter) + '_' + file[1]), arr=new_imag)
-        
-        
+            
     def data_to_array(self, n_classes, normalization='max', filename='dataset'):
         '''Fetch data from folder and save data (X) array
            and label (Y) array in one common .npz-file'''
@@ -202,8 +199,7 @@ class DataPreprocessor():
         # Save datasets, labelsets to file
         np.savez(join(self.path, filename + '.npz'), data_X=data_X, data_Y=data_Y)
         del data_X, data_Y  # free up memory
-    
-    
+     
     def _new_dir(self, old_path, old_folder_name, new_folder_name):
         '''Create new directories'''
         new_path = []
@@ -213,7 +209,6 @@ class DataPreprocessor():
             makedirs(temp_dir)
             new_path.append([temp_dir])
         return new_path
-    
     
     def _init_folders(self):
         '''Read files in folders'''
@@ -235,7 +230,6 @@ class DataPreprocessor():
         if not all(len(n) == len_entry for n in it):
             raise ValueError('Not all lists have same length!')
         
-    
     def _get_file_generator_patches(self, patch_input_path, patch_label_path):
         '''Generator to retrieve file names for patch selection'''
         n_folders = len(self.input_path + self.label_path)
@@ -248,8 +242,7 @@ class DataPreprocessor():
         for i in range(0, len(temp_files)):
             yield (temp_path[i][0], temp_files[i], 
                    temp_patch_path[i][0]), divmod(i, n_folders)[0]
-            
-            
+                     
     def _get_file_generator(self, file_list):
         '''Generator to retrieve file names'''
         n_folders = len(self.input_path + self.label_path)
@@ -260,7 +253,6 @@ class DataPreprocessor():
         for i in range(0, len(temp_files)):
             yield (temp_path[i][0], temp_files[i]), divmod(i, n_folders)[0]
             
-    
     def _random_patch_selection(self, file, rand_pair, patch_shape):
         '''Selects patches (randomly) from original image'''
         image = io.imread('{}\{}'.format(file[0], file[1]))
@@ -272,8 +264,7 @@ class DataPreprocessor():
             # Save patch n    
             io.imsave(fname='{}\{}'.format(
                       file[2], 'patch_' + str(n) + '_' + file[1]), arr=patch_n)
-
-        
+    
     def _get_input_data(self, k, normalization):
         '''Read data files and return separate numpy arrays'''
         input_arrays = []
@@ -292,7 +283,6 @@ class DataPreprocessor():
         single_input = np.concatenate(input_arrays, axis=2)
         return single_input
     
-    
     def _get_label_data_single(self, k, n_classes):
         '''Read label files and perform one-hot encoding,
         single file which contains all classes''' 
@@ -310,8 +300,7 @@ class DataPreprocessor():
         # Move background class to last index
         one_hot_labels = one_hot_labels[1:] + [one_hot_labels[0]]
         return np.concatenate(one_hot_labels, axis=2)
-        
-        
+            
     def _get_label_data_mult(self, k, _):
         '''Read label files and perform one-hot encoding,
         multiple files with 2 classes each (one common class (background) is

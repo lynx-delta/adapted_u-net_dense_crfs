@@ -32,7 +32,7 @@ def pp_denseCRF(imag, y_pred,
         d.addPairwiseEnergy(pw_bilateral, compat=pw_bilat_compat)
     # Inference
     Q = d.inference(inf_steps)
-    # Reshape eigen matrix and return prediction in original shape 
+    # Reshape eigenmatrix and return prediction in original shape 
     pred_Q = np.reshape(Q, (n_classes, height, width))
     pred_orig_shape = np.moveaxis(pred_Q, 0, -1)
     return pred_orig_shape

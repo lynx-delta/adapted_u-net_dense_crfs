@@ -10,7 +10,7 @@ def u_net_model(img_height, img_width, input_chn, n_classes, act_func='elu',
     img_height: image height in pixels ==> height/32 must be an integer
     img_width: image width in pixels ==> width/32 must be an integer
     img_depth: number of input channels
-    n_classes: number of classes on ground truth image
+    n_classes: number of classes in ground truth image
     act_func: activation function (layers)
               default = 'elu'
     regularizer: batch normalisation (batchnorm) or dropout (dropout)

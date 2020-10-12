@@ -12,8 +12,7 @@ class TrainedModel():
         # Prototype (further development ==> inherit class directly from
         # keras.models.Model)
         self.model = model
-        
-        
+           
     def model_test(self, test_X, test_Y, verbose=1, average=None):
         '''
         Evaluate model on a test dataset
@@ -28,8 +27,7 @@ class TrainedModel():
         y_pred = self.model.predict(test_X, batch_size=1, verbose=verbose)
         # Return metrics
         return self._calc_metrics(test_Y, y_pred, average)
-          
-            
+                  
     def model_predict(self, pred_X, verbose=1, return_format='list'):
         '''
         Use model for prediction (unseen data)
@@ -49,8 +47,7 @@ class TrainedModel():
             return y_pred_list
         else:
             return y_pred
-        
-        
+             
     def model_denseCRF_test(self, test_X, test_Y, verbose=1, average=None,
                             pairwise_gauss=True, pairwise_bilateral=True,
                             pw_gauss_sdims=(10, 10), pw_gauss_compat=3,
@@ -96,8 +93,7 @@ class TrainedModel():
                                  pw_bilat_compat, inf_steps)
         # Return metrics
         return self._calc_metrics(test_Y, y_pred_crf, average)
-     
-        
+         
     def model_denseCRF_predict(self, pred_X, verbose=1, return_format='list',
                                pairwise_gauss=True, pairwise_bilateral=True,
                                pw_gauss_sdims=(10, 10), pw_gauss_compat=3,
@@ -153,8 +149,7 @@ class TrainedModel():
                                      pw_bilat_sdims, pw_bilat_schan,
                                      pw_bilat_compat, inf_steps)
             return y_pred_crf
-        
-
+ 
     def _calc_metrics(self, y_true, y_pred, average):
         '''Calculate metrics (overall accuracy, F1 score)'''
         y_pred_max = np.argmax(y_pred, axis=-1)

@@ -7,7 +7,7 @@ import netw_test_predict
 
 
 file_test = 'dataset_test'   # name of data file to load
-model_name = 'xxx'           # model name if a whole model is imported
+model_name = 'xxx'           # model name if whole model is imported
 model_weights_name = 'u_net_model_weights'  # name of weights set if only weights are imported (usual case)
 load_entire_model = False    # if False then the provided set of weights is loaded, otherwise the whole model
 eval_test = True             # evaluate network without using dense crf post-processing
