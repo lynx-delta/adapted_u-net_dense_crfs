@@ -10,7 +10,7 @@ from skimage import transform as trf
 
 
 class DataPreprocessor():
-    '''Class for data preprocesing'''
+    '''Class for data preprocessing'''
     
     def __init__(self, main_path, folder_name):
         '''Initialization'''
